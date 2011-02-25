@@ -1,0 +1,50 @@
+body {
+	color: #141414;
+/*	color: #423B25;*/
+/*	background-color: #8F6845; */
+/*	color: #FFAB39; */
+/*	color: #3B1707; */
+/*	background-color: #F3FF9C; 
+*/	background-color: #FFF;
+	font-family: "Avenir LT Std", "Avenir", Helvetica, "Helvetica Neue", Arial, sans-serif;
+	text-align: left;
+	font-size: 20px;
+	line-height: 1.2;
+}
+
+body h2, h3, h4 {
+	color: #FFAB39;
+}
+
+div#banner {
+	min-width: 640px;
+	width: 100%;
+	background-color: #141414;
+	text-align: left;
+	font-size: 24px;
+}
+
+div#banner h1 {
+	width: 90%;
+	margin: 0 0 0 0;
+	padding-left: 40px;
+	color: #fff;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+div#content {
+	min-width: 640px;
+	padding-left: 40px;
+	width: 90%;
+}
+
+div#content ul {
+	padding-left: 25%;
+	width: 50%
+}
+
+div.special {
+	position: absolute;
+	bottom: 0px;
+}
