@@ -62,3 +62,4 @@ li.tumblr_post.tumblr_text_post, .tumblr_photo_post{border:2px solid #000;paddin
 .tumblr_posts h1, .tumblr_title{font-family:Garamond;font-size:24px;margin-bottom:15px;text-align:center;}
 .tumblr_body, .tumblr_caption{text-align:justify;}
 .tumblr_photo{border:5px solid #000;}
+.tumblr_bordertop{position: relative; top: -40px; padding-top: 15px; margin-bottom: -45px; border-top: 1px solid #000;}
