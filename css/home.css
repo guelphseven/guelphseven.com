@@ -20,7 +20,9 @@ h3{font-family:'Orbitron';font-size:22px;padding-bottom:28px;}
 .list li{width:60px;height:60px;border-style:solid;border-width:5px;margin-bottom:20px;margin-left:auto;margin-right:auto;}
 
 #main{width:480px;float:left;text-align:center;margin-top:150px;font-family:Garamond;font-size:20px;}
+#main_content{width:480px;float:left;text-align:center;margin-top:17px;font-family:Garamond;font-size:20px;}
 #main p{padding-bottom:25px;}
+#main_content p{padding-bottom:25px;}
 
 #thanks{position:relative;width:600px;float:left;padding-left:20px;padding-top:20px;overflow:hidden;}
 #thanks:before{content:"";position:absolute;top:0;right:0;border-width:0 16px 16px 0;border-style:solid;border-color:#cccccc #cccccc #000 #000;background:#000;}
@@ -42,13 +44,20 @@ h3{font-family:'Orbitron';font-size:22px;padding-bottom:28px;}
 #contact li{font-family:'Raleway';font-size:20px;padding-bottom:20px;}
 #contact a{text-decoration:underline; color:#fff;}
 
-#hacker1{background:url(http://i.imgur.com/QJp0Fs.jpg) no-repeat 20% center;}
-#hacker2{background:url(http://i.imgur.com/aGDv4.jpg) no-repeat 20% center;}
-#hacker3{background:url(http://i.imgur.com/HkugL.jpg) no-repeat 20% center;}
-#hacker4{background:url(http://i.imgur.com/sxzh3.jpg) no-repeat 20% center;}
-#hacker5{background:url(http://i.imgur.com/Pxwwr.jpg) no-repeat 20% center;}
-#hacker6{background:url(http://i.imgur.com/kZYGD.jpg) no-repeat 20% center;}
+#hacker11{background:url(http://i.imgur.com/QJp0Fs.jpg) no-repeat 20% center;}
+#hacker1{background:url(http://i55.tinypic.com/2ut2glv.png) no-repeat 20% center;}
+#hacker12{background:url(http://i.imgur.com/aGDv4.jpg) no-repeat 20% center;}
+#hacker2{background:url(http://i56.tinypic.com/352hu11.png) no-repeat 20% center;}
+#hacker13{background:url(http://i.imgur.com/HkugL.jpg) no-repeat 20% center;}
+#hacker3{background:url(http://i56.tinypic.com/mrqs7c.png) no-repeat 20% center;}
+#hacker14{background:url(http://i.imgur.com/sxzh3.jpg) no-repeat 20% center;}
+#hacker4{background:url(http://i54.tinypic.com/jkizix.png) no-repeat 20% center;}
+#hacker15{background:url(http://i.imgur.com/Pxwwr.jpg) no-repeat 20% center;}
+#hacker5{background:url(http://i56.tinypic.com/15xjzue.png) no-repeat 20% center;}
+#hacker16{background:url(http://i.imgur.com/kZYGD.jpg) no-repeat 20% center;}
+#hacker6{background:url(http://i53.tinypic.com/1z1hi01.png) no-repeat 20% center;}
 #hacker7{background:url(http://i.imgur.com/CdxQs.jpg) no-repeat 20% center;}
+#hacker17{background:url() no-repeat 20% center;}
 
 #day1{background:url(http://i.imgur.com/quwEBs.jpg) no-repeat 20% center;}
 #day2{background:url(http://i.imgur.com/7M8C3s.jpg) no-repeat 30% 0%;}
