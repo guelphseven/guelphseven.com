@@ -1,0 +1,15 @@
+AddType image/svg+xml                   svg svgz
+AddEncoding gzip                        svgz
+AddType application/vnd.ms-fontobject   eot
+AddType font/truetype                   ttf
+AddType font/opentype                   otf
+AddType font/woff                       woff
+AddType image/vnd.microsoft.icon        ico
+AddType text/x-component                htc
+
+Options -MultiViews
+Options -Indexes
+AddDefaultCharset utf-8
+AddCharset utf-8 .html .css .js .xml .json .rss
+# Don't tell everyone we're apache.
+ServerSignature Off
