@@ -1,3 +1,4 @@
+# Web fonts support
 AddType image/svg+xml                   svg svgz
 AddEncoding gzip                        svgz
 AddType application/vnd.ms-fontobject   eot
@@ -14,17 +15,20 @@ AddCharset utf-8 .html .css .js .xml .json .rss
 # Don't tell everyone we're apache.
 ServerSignature Off
 
-#Options +FollowSymLinks
-#RewriteEngine on
+# Hide the cache folder
+# <Directory ~ "tumblr_cache">
+# Order allow,deny
+# Deny from all
+# </Directory>
 
-# Usually it RewriteBase is just '/', but 
-# replace it with your subdirectory path
-#RewriteBase /
+Options +FollowSymlinks
+RewriteEngine On
 
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule /?([A-Za-z0-9]+)/([A-Za-z0-9]+)/?$ http://guelphseven.com/test.php
-#?group=$1&id=$2 [NC]
-#Alias /test.php.* /funny 
+# Uh no we don't use php >_>
+RewriteRule (index\.php) /?page=$1 [NS,L]
 
-#roup=(.*)&id=(.*) http://guelphseven.com/$1/$2
+# Not a real place? I don't care!
+RewriteCond %{REQUEST_FILENAME} !-d [OR]
+RewriteCond %{REQUEST_URI} !^/$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.*) /?page=$1 [NS,L]

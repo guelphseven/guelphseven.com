@@ -144,6 +144,7 @@ em { font-style: normal; }
 .tumblr_body { text-shadow: none; }
 .tumblr_posts p { margin: 1em 0 0 0; }
 .tumblr_body .fill { max-width:  100%; width: 100%; height:auto; }
+.tumblr_date { margin: 1em 0 0 0; }
 #blog-sticky ol, #blog-latest ol, #blog-ask ol { list-style-type: none; margin: 0; }
 #blog-sticky .tumblr_post { background-color: #444; color: #DDD; text-shadow: 1px 1px 1px black; }
 #blog-sticky .tumblr_title { text-align: center; color: #e16734; }
