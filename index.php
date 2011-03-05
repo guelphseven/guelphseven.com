@@ -1,19 +1,19 @@
 <?php
-/* Get a value from an array by key only if the key exists, otherwise return $default (or NULL) */
-function safeArrayValue( $array, $key, $default = NULL) {
+/* Get a value from an array by key only if the key exists, otherwise return or NULL */
+function getArrayValueOrNULL( $array, $key) {
     if(array_key_exists($key, $array)) { 
         return $array[$key];
     } else {
-        return $default;
+        return NULL;
     }
 }
 
 /* Retrieve and format raw XML for posts tagged with $tag, and optionally include the post date */
 function getTumblrPostsAsHTML( $tag, $include_date = true ) {
-    $xml = simplexml_load_file("http://guelphseven.tumblr.com/api/read?tagged=".$tag);
-    if(!$xml) {
+    if(!$xml = simplexml_load_file("http://guelphseven.tumblr.com/api/read?tagged=".$tag)) {
         return NULL;
     }
+
     $posts = $xml->xpath('/tumblr/posts/post');
     $html = '<ol class="tumblr_posts">' . "\n";
     foreach ($posts as $post) {
@@ -33,88 +33,51 @@ function getTumblrPostsAsHTML( $tag, $include_date = true ) {
 /* Get all tumblr posts under tag, as html, cached if possible */
 function renderTumblrPosts( $tag, $include_date = true ) {
     if($tag !== NULL) {
-        // http://pastebin.com/qLLA2QAW -- Jett's implementation
+        // Thanks to @dlachapelle for caching
         $cachefile = "./tumblr_cache/" . $tag . ($include_date ? "_dated" : "");
         if(!file_exists($cachefile) || filemtime($cachefile) < strtotime("-10 minutes")) {
-            $posts = getTumblrPostsAsHTML($tag, $include_date);
-            if($posts) {
+            if($posts = getTumblrPostsAsHTML($tag, $include_date)) {
                 // save posts to cache
                 $posts_cache = serialize($posts);
-                $fp = fopen($cachefile, 'w');
-                fwrite($fp, $posts_cache);
-                fclose($fp);
+                if($fp = fopen($cachefile, 'w')) {
+                    fwrite($fp, $posts_cache);
+                    fclose($fp);
+                }
                 echo $posts;
                 return;
             }
         }
 
-        $fp = fopen($cachefile, 'r');
-        $contents = fread($fp, filesize($cachefile));
-        fclose($fp);
-        $posts = unserialize($contents);
+        if($fp = fopen($cachefile, 'r')) {
+            $contents = fread($fp, filesize($cachefile));
+            fclose($fp);
+            $posts = unserialize($contents);
+        }
         echo $posts;
         return;
     }
 }
 
 $pages = array(
-    '404' => array(
-        'sticky' => "404"
-    ),
-    'index' => array(
-        'sticky' => "intro",
-        'latest' => "news",
-        'ask' => "ask"
-    ),
-    'team/paul' => array(
-        'sticky' => "biopvilchez"
-    ),
-    'team/luke' => array(
-        'sticky' => "biolrewega"
-    ),
-    'team/martin' => array(
-        'sticky' => "biomlindsay"
-    ),
-    'team/wyatt' => array(
-        'sticky' => "biowcarss"
-    ),
-    'team/quincy' => array(
-        'sticky' => "bioqjermyn"
-    ),
-    'team/chris' => array(
-        'sticky' => "biocstatham"
-    ),
-    'apps/day1' => array(
-        'sticky' => "app1description",
-        'latest' => "day1",
-    ),
-    'apps/day2' => array(
-        'sticky' => "app2description",
-        'latest' => "day2",
-    ),
-    'apps/day3' => array(
-        'sticky' => "app3description",
-        'latest' => "day3",
-    ),
-    'apps/day4' => array(
-        'sticky' => "app4description",
-        'latest' => "day4",
-    ),
-    'apps/day5' => array(
-        'sticky' => "app5description",
-        'latest' => "day5",
-    ),
-    'apps/day6' => array(
-        'sticky' => "app6description",
-        'latest' => "day6",
-    ),
-    'apps/day7' => array(
-        'sticky' => "app1description",
-        'latest' => "day7",
-    )
+    '404' => array('sticky' => "404"),
+    'index' => array('sticky' => "intro", 'latest' => "news", 'ask' => "ask"),
+    'team/paul' => array('sticky' => "biopvilchez"),
+    'team/luke' => array('sticky' => "biolrewega"),
+    'team/martin' => array('sticky' => "biomlindsay"),
+    'team/wyatt' => array('sticky' => "biowcarss"),
+    'team/quincy' => array('sticky' => "bioqjermyn"),
+    'team/chris' => array('sticky' => "biocstatham"),
+    'team/kiel' => array('sticky' => "biokmonk"),
+    'apps/day1' => array('sticky' => "app1description", 'latest' => "day1"),
+    'apps/day2' => array('sticky' => "app2description", 'latest' => "day2"),
+    'apps/day3' => array('sticky' => "app3description", 'latest' => "day3"),
+    'apps/day4' => array('sticky' => "app4description", 'latest' => "day4"),
+    'apps/day5' => array('sticky' => "app5description", 'latest' => "day5"),
+    'apps/day6' => array('sticky' => "app6description", 'latest' => "day6"),
+    'apps/day7' => array('sticky' => "app1description", 'latest' => "day7")
 );
 
-$page = safeArrayValue($_GET, "page");
+$page = getArrayValueOrNULL($_GET, "page");
 if($page === NULL) {
     $page = "index";
 }
@@ -124,7 +87,7 @@ if(!array_key_exists($page, $pages)) {
     $page = "404";
 }
 
-$content = safeArrayValue($pages, $page);
+$content = getArrayValueOrNULL($pages, $page);
 ?>
 <!doctype html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
@@ -175,18 +138,18 @@ $content = safeArrayValue($pages, $page);
                     <li><a href="/team/martin"><div class="icon"><img src="/img/thumb_martin.png" /></div></a></li>
                     <li><a href="/team/wyatt"><div class="icon"><img src="/img/thumb_wyatt.png" /></div></a></li>
                     <li><a href="/team/chris"><div class="icon"><img src="/img/thumb_chris.png" /></div></a></li>
-                    <li><a href="#"><div class="icon"><img src="/img/g7.png" /></div></a></li>
+                    <li><a href="/team/kiel"><div class="icon"><img src="/img/thumb_kiel.png" /></div></a></li>
                 </ul>
             </div>
             <div id="content">
                 <div id="blog-sticky">
-<?php renderTumblrPosts(safeArrayValue($content,'sticky'), false); ?>
+<?php renderTumblrPosts(getArrayValueOrNULL($content,'sticky'), false); ?>
                 </div>
                 <div id="blog-latest">
-<?php renderTumblrPosts(safeArrayValue($content,'latest'), true); ?>
+<?php renderTumblrPosts(getArrayValueOrNULL($content,'latest'), true); ?>
                 </div>
                 <div id="blog-ask">
-<?php renderTumblrPosts(safeArrayValue($content,'ask'), false); ?>
+<?php renderTumblrPosts(getArrayValueOrNULL($content,'ask'), false); ?>
                 </div>
             </div>
         </div>
