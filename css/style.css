@@ -122,8 +122,7 @@ em { font-style: normal; }
 }
 
 .tumblr_title { font: 800 12px/18px 'Molengo', serif; line-height: 1em; margin: 0 0 0.5em 0; font-size: 2em; }
-/*.tumblr_title:hover { color: #e16734; }*/
-.tumblr_post, #sponsors, .icon {
+.tumblr_post, #sponsors, .contact, .icon {
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
@@ -151,6 +150,8 @@ em { font-style: normal; }
 /*#blog-sticky .tumblr_title:hover {color: #3467e1; }*/
 #blog-sticky a, #blog-sticky a:visited { color: #e16734; }
 #blog-sticky a:hover, #blog-sticky a:focus { color: #3467e1; }
+.contact { margin: 4px 0; padding: 4px; vertical-align: middle; line-height:0; display:inline-block; background-color: #222; text-shadow: 1px 1px 1px #000; font-size: 20px; border: 1px solid black; font-weight: 800; height:31px; vertical-align:middle;}
+.contact img { margin: 0 8px 0 0; }
 
 header, footer {
     text-align: center;

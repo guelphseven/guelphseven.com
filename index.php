@@ -109,7 +109,6 @@ $content = getArrayValueOrNULL($pages, $page);
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/libs/modernizr-1.6.min.js"></script>
-    <script src="http://w.sharethis.com/button/buttons.js"></script>
 </head>
 <body>
     <div id="container">
@@ -204,7 +203,6 @@ $content = getArrayValueOrNULL($pages, $page);
             g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g, s);
         })(document, 'script');
-        stLight.options({publisher:'902b6c1a-a165-402f-9a1a-33148768f58e'});
         try{ clicky.init(66383767); }catch(err){}
     </script>
 </body>
