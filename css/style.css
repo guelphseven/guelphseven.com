@@ -95,6 +95,7 @@ h1:hover { color: #e16734; }
 /*, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover { color: #e16734; }*/
 h1 { font-size: 6em; }
 h2 { font-size: 3em; }
+h3 { font-size: 2em; margin-top: 12px; text-align: left;}
 
 #container { margin: 0px auto; padding: 48px 0px 0px; max-width: 940px; min-width: 620px; }
 
@@ -148,8 +149,8 @@ em { font-style: normal; }
 #blog-sticky .tumblr_post { background-color: #444; color: #DDD; text-shadow: 1px 1px 1px black; }
 #blog-sticky .tumblr_title { text-align: center; color: #e16734; }
 /*#blog-sticky .tumblr_title:hover {color: #3467e1; }*/
-#blog-sticky a, #blog-sticky a:visited { color: #e16734; }
-#blog-sticky a:hover, #blog-sticky a:focus { color: #3467e1; }
+.tumblr_body a, .tumblr_body a:visited, #blog-sticky a, #blog-sticky a:visited { color: #e16734; }
+.tumblr_body a:hover, .tumblr_body a:focus, #blog-sticky a:hover, #blog-sticky a:focus { color: #3467e1; }
 .contact { margin: 4px 0; padding: 4px; vertical-align: middle; line-height:0; display:inline-block; background-color: #222; text-shadow: 1px 1px 1px #000; font-size: 20px; border: 1px solid black; font-weight: 800; height:31px; vertical-align:middle;}
 .contact img { margin: 0 8px 0 0; }
 
