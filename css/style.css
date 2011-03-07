@@ -129,8 +129,8 @@ em { font-style: normal; }
     border-radius: 8px;
     behavior: url(/PIE.htc);
 }
-.icon { margin: 0 -4px; overflow: hidden; border: 4px solid #444; width: 64px; height: 64px; }
-.icon:hover { border: 4px solid #e16734; }
+.icon { margin: 0 -4px; overflow: hidden; border: 4px solid #444; background-color: #444; width: 64px; height: 64px; }
+.icon:hover { border: 4px solid #e16734; background-color: #e16734; }
 #main { display-inline: block; }
 #logo { background-image:url(../img/g7.png); width: 64px; height: 64px;}
 #apps ul, #team ul { list-style-type: none; margin: 0 28px;}
@@ -148,6 +148,8 @@ em { font-style: normal; }
 #blog-sticky ol, #blog-latest ol, #blog-ask ol { list-style-type: none; margin: 0; }
 #blog-sticky .tumblr_post { background-color: #444; color: #DDD; text-shadow: 1px 1px 1px black; }
 #blog-sticky .tumblr_title { text-align: center; color: #e16734; }
+#blog-sticky h3 { text-align: center; color: #EEE;}
+#blog-sticky img { text-align: center; }
 /*#blog-sticky .tumblr_title:hover {color: #3467e1; }*/
 .tumblr_body a, .tumblr_body a:visited, #blog-sticky a, #blog-sticky a:visited { color: #e16734; }
 .tumblr_body a:hover, .tumblr_body a:focus, #blog-sticky a:hover, #blog-sticky a:focus { color: #3467e1; }

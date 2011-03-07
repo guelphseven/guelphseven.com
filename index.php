@@ -74,7 +74,7 @@ $pages = array(
     'apps/day4' => array('sticky' => "app4description", 'latest' => "day4"),
     'apps/day5' => array('sticky' => "app5description", 'latest' => "day5"),
     'apps/day6' => array('sticky' => "app6description", 'latest' => "day6"),
-    'apps/day7' => array('sticky' => "app1description", 'latest' => "day7")
+    'apps/day7' => array('sticky' => "app7description", 'latest' => "day7")
 );
 
 $page = getArrayValueOrNULL($_GET, "page");
