@@ -120,7 +120,7 @@ $content = getArrayValueOrNULL($pages, $page);
                 <h2>The<br/>Apps</h2>
                 <ul>
                     <li><a href="/apps/day1"><div class="icon"><img src="/img/thumb_app1.png" /></div></a></li>
-                    <li><a href="/apps/day2"><div class="icon"><img src="/img/billbreak.png" /></div></a></li>
+                    <li><a href="/apps/day2"><div class="icon"><img src="/img/thumb_app2.png" /></div></a></li>
                     <li><a href="/apps/day3"><div class="icon"><img src="/img/thumb_app3.png" /></div></a></li>
                     <li><a href="/apps/day4"><div class="icon"><img src="/img/thumb_app4.png" /></div></a></li>
                     <li><a href="/apps/day5"><div class="icon"><img src="/img/thumb_app5.png" /></div></a></li>
