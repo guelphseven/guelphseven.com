@@ -10,6 +10,7 @@ function getArrayValueOrNULL( $array, $key) {
 
 /* Retrieve and format raw XML for posts tagged with $tag, and optionally include the post date */
 function getTumblrPostsAsHTML( $tag, $ignore_date, $current_page, $start, $num) {
+    /*TODO: rewrite using curl and simplexml_load_string */
     if(!$xml = simplexml_load_file("http://guelphseven.tumblr.com/api/read?tagged=" . $tag)) {
         return NULL;
     }
@@ -142,7 +143,7 @@ $content = getArrayValueOrNULL($pages, $page);
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>The Guelph Seven - 7 Students make 7 Apps in 7 Days<?php print_r($_GET);?></title>
+    <title>The Guelph Seven - 7 Students make 7 Apps in 7 Days</title>
     <meta name="description" content="The Guelph Seven: 7 Students, 7 Apps, 7 Days, March 5th-11th, 2011.">
     <meta name="author" content="The Guelph Seven">
     <meta name="keywords" content="guelph seven guelphseven 7 cubed android startups development coding apps uog uoguelph uwaterloo">
