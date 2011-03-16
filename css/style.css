@@ -154,8 +154,10 @@ em { font-style: normal; }
 /*#blog-sticky .tumblr_title:hover {color: #3467e1; }*/
 .tumblr_body a, .tumblr_body a:visited, #blog-sticky a, #blog-sticky a:visited { color: #e16734; }
 .tumblr_body a:hover, .tumblr_body a:focus, #blog-sticky a:hover, #blog-sticky a:focus { color: #3467e1; }
-.contact { margin: 4px 0; padding: 4px; vertical-align: middle; line-height:0; display:inline-block; background-color: #222; text-shadow: 1px 1px 1px #000; font-size: 20px; border: 1px solid black; font-weight: 800; height:31px; vertical-align:middle;}
-.contact img { margin: 0 8px 0 0; }
+.contact { padding: 0.1em; display:inline-block; background-color: #222; text-shadow: 1px 1px 1px #000; font-size: 20px; border: 1px solid black; font-weight: 800; height:32px;  text-align:center; overflow:visible; position:relative;}
+.contact-icon { margin-top: -12px; display: inline-block; height:32px;}
+.contact-icon img { padding-top: 11px; }
+.contact-text { line-height: 32px; height: 32px; display:inline-block; }
 
 header, footer {
     text-align: center;
