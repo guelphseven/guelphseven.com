@@ -150,6 +150,7 @@ em { font-style: normal; }
 #blog-sticky .tumblr_title { text-align: center; color: #e16734; }
 #blog-sticky h3 { text-align: center; color: #EEE; font-size: 1.5em; }
 #blog-sticky img { text-align: center; }
+.tumblr_pagenav .tumblr_title { text-align: center; }
 /*#blog-sticky .tumblr_title:hover {color: #3467e1; }*/
 .tumblr_body a, .tumblr_body a:visited, #blog-sticky a, #blog-sticky a:visited { color: #e16734; }
 .tumblr_body a:hover, .tumblr_body a:focus, #blog-sticky a:hover, #blog-sticky a:focus { color: #3467e1; }
