@@ -9,20 +9,48 @@ function getArrayValueOrNULL( $array, $key) {
 }
 
 /* Retrieve and format raw XML for posts tagged with $tag, and optionally include the post date */
-function getTumblrPostsAsHTML( $tag, $include_date = true ) {
-    if(!$xml = simplexml_load_file("http://guelphseven.tumblr.com/api/read?tagged=".$tag)) {
+function getTumblrPostsAsHTML( $tag, $ignore_date, $current_page, $start, $num) {
+    if(!$xml = simplexml_load_file("http://guelphseven.tumblr.com/api/read?tagged=" . $tag)) {
+        return NULL;
+    }
+    $info = $xml->xpath('/tumblr/posts');
+    $info = $info[0];
+    $posts = $xml->xpath('/tumblr/posts/post');
+    $post_count = count($posts);
+    if($post_count <= 0 || $start >= $post_count){
         return NULL;
     }
 
-    $posts = $xml->xpath('/tumblr/posts/post');
+    $page_size = $num;
+    if($start + $num > $post_count) {
+        $num = $post_count - $start;
+    }
+
     $html = '<ol class="tumblr_posts">' . "\n";
-    foreach ($posts as $post) {
+    for ($i = $start; $i < $start + $num; ++$i) {
+        $post = $posts[$i];
         $html .= '    <li class="tumblr_post">'. "\n";
         $html .= '        <div class="tumblr_title">' . $post->{'regular-title'} . '</div>' . "\n";
         $html .= '        <div class="tumblr_body">' . $post->{'regular-body'} . '</div>' . "\n";
-        if($include_date) {
+        if(!$ignore_date) {
             $html .= '        <div class="tumblr_date">' . $post['date'] . '</div>' . "\n";
         }
+        $html .= '    </li>' . "\n";
+    }
+
+    if(!empty($current_page) && $num < $post_count) {
+        $html .= '    <li class="tumblr_pagenav">' . "\n";
+        $html .= '        <div class="tumblr_title">';
+        if($start > 0) {
+            $html .= '<a href="/' . $current_page . '/page' . ($start<$page_size?0:floor(($start-$page_size)/$page_size)) . '">Previous</a>';
+        }
+        if($start + $num < $post_count) {
+            if($start > 0) {
+                $html .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+            $html .= '<a href="/' . $current_page . '/page' . floor(($start + $page_size)/$page_size) . '">Next</a>';
+        }
+        $html .= '</div>' . "\n";
         $html .= '    </li>' . "\n";
     }
     $html .= '</ol>' . "\n";
@@ -31,16 +59,19 @@ function getTumblrPostsAsHTML( $tag, $include_date = true ) {
 }
 
 /* Get all tumblr posts under tag, as html, cached if possible */
-function renderTumblrPosts( $tag, $include_date = true ) {
+function renderTumblrPosts( $tag, $ignore_date = true, $current_page = "", $start = 0, $num = 5 ) {
     if($tag !== NULL) {
         // Thanks to @dlachapelle for caching
-        $cachefile = "./tumblr_cache/" . $tag . ($include_date ? "_dated" : "");
+        $cachefile = "./tumblr_cache/" . $tag . "_s" . $start . "_c" . $num . ($ignore_date ? "" : "_dated");
         if(!file_exists($cachefile) || filemtime($cachefile) < strtotime("-10 minutes")) {
-            if($posts = getTumblrPostsAsHTML($tag, $include_date)) {
+            if($posts = getTumblrPostsAsHTML($tag, $ignore_date, $current_page, $start, $num)) {
                 // save posts to cache
                 $posts_cache = serialize($posts);
                 if($fp = fopen($cachefile, 'w')) {
-                    fwrite($fp, $posts_cache);
+                    if(flock($fp, LOCK_EX)) {
+                        fwrite($fp, $posts_cache);
+                        flock($fp, LOCK_UN);
+                    }
                     fclose($fp);
                 }
                 echo $posts;
@@ -49,11 +80,18 @@ function renderTumblrPosts( $tag, $include_date = true ) {
         }
 
         if($fp = fopen($cachefile, 'r')) {
-            $contents = fread($fp, filesize($cachefile));
+            if(flock($fp, LOCK_SH)) {
+                $contents = fread($fp, filesize($cachefile));
+                flock($fp, LOCK_UN);
+            }
             fclose($fp);
             $posts = unserialize($contents);
         }
-        echo $posts;
+        if($posts) {
+            echo $posts;
+        } else if ($tag != "404") {
+            renderTumblrPosts("404");
+        }
         return;
     }
 }
@@ -82,6 +120,12 @@ if($page === NULL) {
     $page = "index";
 }
 
+$page_start = 0;
+if(preg_match('/(.+)\/page(\d+)/',$page,$matches)) {
+    $page = $matches[1];
+    $page_start = intval($matches[2]);
+}
+
 if(!array_key_exists($page, $pages)) {
     header("HTTP/1.0 404 Not Found");
     $page = "404";
@@ -98,7 +142,7 @@ $content = getArrayValueOrNULL($pages, $page);
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>The Guelph Seven - 7 Students make 7 Apps in 7 Days</title>
+    <title>The Guelph Seven - 7 Students make 7 Apps in 7 Days<?php print_r($_GET);?></title>
     <meta name="description" content="The Guelph Seven: 7 Students, 7 Apps, 7 Days, March 5th-11th, 2011.">
     <meta name="author" content="The Guelph Seven">
     <meta name="keywords" content="guelph seven guelphseven 7 cubed android startups development coding apps uog uoguelph uwaterloo">
@@ -142,13 +186,13 @@ $content = getArrayValueOrNULL($pages, $page);
             </div>
             <div id="content">
                 <div id="blog-sticky">
-<?php renderTumblrPosts(getArrayValueOrNULL($content,'sticky'), false); ?>
+<?php renderTumblrPosts(getArrayValueOrNULL($content,'sticky')); ?>
                 </div>
                 <div id="blog-latest">
-<?php renderTumblrPosts(getArrayValueOrNULL($content,'latest'), true); ?>
+<?php renderTumblrPosts(getArrayValueOrNULL($content,'latest'), false, $page, $page_start * 5); ?>
                 </div>
                 <div id="blog-ask">
-<?php renderTumblrPosts(getArrayValueOrNULL($content,'ask'), false); ?>
+<?php renderTumblrPosts(getArrayValueOrNULL($content,'ask')); ?>
                 </div>
             </div>
         </div>
