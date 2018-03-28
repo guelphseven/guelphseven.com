@@ -64,7 +64,7 @@ function renderTumblrPosts( $tag, $ignore_date = true, $current_page = "", $star
     if($tag !== NULL) {
         // Thanks to @dlachapelle for caching
         $cachefile = "./tumblr_cache/" . $tag . "_s" . $start . "_c" . $num . ($ignore_date ? "" : "_dated");
-        if(!file_exists($cachefile) || filemtime($cachefile) < strtotime("-10 minutes")) {
+        if(!file_exists($cachefile)) {
             if($posts = getTumblrPostsAsHTML($tag, $ignore_date, $current_page, $start, $num)) {
                 // save posts to cache
                 $posts_cache = serialize($posts);
@@ -99,7 +99,7 @@ function renderTumblrPosts( $tag, $ignore_date = true, $current_page = "", $star
 
 $pages = array(
     '404' => array('sticky' => "404"),
-    'index' => array('sticky' => "intro", 'latest' => "news", 'ask' => "ask"),
+    'index' => array('sticky' => "intro", 'latest' => "news"),
     'team/paul' => array('sticky' => "biopvilchez"),
     'team/luke' => array('sticky' => "biolrewega"),
     'team/martin' => array('sticky' => "biomlindsay"),
@@ -119,6 +119,8 @@ $pages = array(
 $page = getArrayValueOrNULL($_GET, "page");
 if($page === NULL) {
     $page = "index";
+} else {
+    $page = ltrim($page, "/");
 }
 
 $page_start = 0;
